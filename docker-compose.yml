@@ -1,0 +1,15 @@
+services:
+  brain:
+    build: ./backend
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      # Mount credentials so token.json persists and can be updated
+      - ./credentials:/app/credentials:ro
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
