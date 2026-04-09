@@ -12,6 +12,7 @@ from app.slack.client import SlackClient
 from app.tools.registry import ToolRegistry
 from app.tools.hubspot_meeting import HubspotMeetingTool
 from app.tools.email_alert import EmailAlertTool
+from app.tools.calendly_meeting import CalendlyMeetingTool
 from app.brain.dispatcher import Dispatcher
 
 # ── Logging ──────────────────────────────────────────────────────────────────
@@ -33,6 +34,7 @@ def build_registry(slack: SlackClient) -> ToolRegistry:
     registry = ToolRegistry()
     registry.register(HubspotMeetingTool(slack=slack))
     registry.register(EmailAlertTool(slack=slack, watch_address="mindaptive@gmail.com"))
+    registry.register(CalendlyMeetingTool(slack=slack))
     # registry.register(YourNextTool(...))
     return registry
 
