@@ -4,8 +4,9 @@ services:
     restart: unless-stopped
     env_file: .env
     volumes:
-      # Mount credentials so token.json persists and can be updated
-      - ./credentials:/app/credentials:ro
+      # Mount credentials so token.json persists and can be updated.
+      # Write access is needed so the poller can save last_history_id.txt.
+      - ./credentials:/app/credentials
     ports:
       - "8000:8000"
     healthcheck:

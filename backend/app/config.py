@@ -15,6 +15,7 @@ class Settings(BaseSettings):
 
     # Polling
     poll_interval_seconds: int = 30
+    history_id_path: str = "credentials/last_history_id.txt"
 
     # App
     environment: str = "production"

@@ -8,7 +8,7 @@ from app.tools.base import BaseTool
 
 logger = logging.getLogger(__name__)
 
-CALENDLY_SENDER = "notifications@calendly.com"
+CALENDLY_DOMAIN = "calendly.com"
 MEETING_PATTERN = re.compile(r"(.+?)(?:'s|'\s*s)?\s+(\d+\s+Minute\s+Meeting)", re.IGNORECASE)
 DATETIME_PATTERN = re.compile(
     r"(?:on\s+)?(\w+day,\s+\w+\s+\d+,\s+\d{4}\s+at\s+[\d:apm\s]+(?:\(.*?\))?)", re.IGNORECASE
@@ -27,7 +27,7 @@ class CalendlyMeetingTool(BaseTool):
         self._slack = slack
 
     async def should_trigger(self, email: EmailMessage) -> bool:
-        return CALENDLY_SENDER in email.from_email.lower()
+        return CALENDLY_DOMAIN in email.from_email.lower()
 
     async def execute(self, email: EmailMessage) -> None:
         # Extract person name from subject: "Reminder: Peter Dublin's 30 Minute Meeting..."
